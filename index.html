@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <title>Hello World</title>
+    <script src="https://unpkg.com/@rive-app/canvas"></script>
+    <style>
+        html, body {
+            padding: 0px;
+            margin: 0px;
+            background-color: bisque;
+        }
+        body {
+            /* height: 100%;
+            width: 100%; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="640" height="416"></canvas>
+</body>
+
+<script>
+    const r = new rive.Rive({
+        src: "http://127.0.0.1:5000/assets/presentation_3.riv",
+        // OR the path to a discoverable and public Rive asset
+        // src: '/public/example.riv',
+        canvas: document.getElementById("canvas"),
+        autoplay: true,
+        autoBind: true,
+        // artboard: "Artboard", // Optional. If not supplied the default is selected
+        stateMachines: "State Machine 1",
+        onLoad: () => {
+            const vmi = r.viewModelInstance;
+
+            function next() {
+                vmi.trigger('next').trigger();
+            }
+            function prev() {
+                vmi.trigger('prev').trigger();
+            }
+
+            document.addEventListener('keydown', (event) => {
+                const key = event.key;
+
+                switch (key) {
+                    case 'ArrowUp':
+                        console.log('Up arrow pressed');
+                        // Add your desired action here for the up arrow
+                        break;
+                    case 'ArrowDown':
+                        console.log('Down arrow pressed');
+                        // Add your desired action here for the down arrow
+                        break;
+                    case 'ArrowLeft':
+                        prev();
+                        console.log('Left arrow pressed');
+                        // Add your desired action here for the left arrow
+                        break;
+                    case 'ArrowRight':
+                        next();
+                        console.log('Right arrow pressed');
+                        // Add your desired action here for the right arrow
+                        break;
+                    default:
+                        // Handle other keys or do nothing
+                        break;
+                }
+            });
+
+            r.resizeDrawingSurfaceToCanvas();
+        },
+    });
+
+</script>
+
+</html>
